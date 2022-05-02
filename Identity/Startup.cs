@@ -51,6 +51,18 @@ namespace WebApp.UnderTheHood
 
             services.AddSingleton<IAuthorizationHandler, HRManagerProbationRequirementHandler>();
             services.AddRazorPages();
+
+            services.AddHttpClient("OurWebAPI", client =>
+             {
+                 client.BaseAddress = new Uri("https://localhost:7211/");
+             });
+
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.IdleTimeout =TimeSpan.FromHours(8);
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +87,8 @@ namespace WebApp.UnderTheHood
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

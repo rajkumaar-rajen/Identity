@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
+using Identity.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -26,7 +27,7 @@ namespace Identity.Pages.Account
                     new Claim("Department","HR"),
                     new Claim("Admin","true"),
                     new Claim("Manager","true"),
-                    new Claim("EmploymentDate","2022-04-22")
+                    new Claim("EmploymentDate","2021-04-22")
                 };
                 var identity = new ClaimsIdentity(claims,"MyCookieAuth");
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);                
@@ -43,17 +44,5 @@ namespace Identity.Pages.Account
 
             return Page();
         }
-    }
-
-    public class Credential
-    {
-        [Required]
-        [Display(Name ="User name")]
-        public string UserName {get;set;}
-         [Required]
-         [DataType(DataType.Password)]
-        public string Password{get;set;}
-        [Display(Name = "Remember Me")]
-        public bool RememberMe { get;set;}
-    }
+    }   
 }
